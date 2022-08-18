@@ -206,7 +206,7 @@ class LayerScale(layers.Layer):
         )
 
     def call(self, x):
-        return x * self.gamma
+        return x * tf.cast(self.gamma, x.dtype)
 
     def get_config(self):
         config = super().get_config()
