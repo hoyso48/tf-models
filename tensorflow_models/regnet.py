@@ -1603,4 +1603,4 @@ def decode_predictions(preds, top=5):
   return imagenet_utils.decode_predictions(preds, top=top)
 
 
-decode_predictions.__doc__ = imagenet_utils.decode_predictions.
+decode_predictions.__doc__ = imagenet_utils.decode_predictions.__doc__
