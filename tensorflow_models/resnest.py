@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.python.keras.utils import layer_utils
 
 def group_conv(x, filters = None, kernel_size = 3, **kwargs):
     if not isinstance(kernel_size, list):
@@ -278,9 +279,13 @@ def resnest50(input_tensor = None, input_shape = None, classes = 1000, include_t
             img_input = tf.keras.layers.Input(tensor = input_tensor, shape = input_shape)
         else:
             img_input = input_tensor
-    
+    if input_tensor is not None:
+        inputs = layer_utils.get_source_inputs(input_tensor)
+    else:
+        inputs = img_input
+        
     out = ResNet(img_input, [3, 4, 6, 3], classes, include_top, radix = 2, group_size = 1, block_width = 64, stem_width = 32, deep_stem = True, avg_down = True, avd = True, avd_first = False)
-    model = tf.keras.Model(img_input, out)
+    model = tf.keras.Model(inputs, out)
     
     if weights == "imagenet":
         load_weight(model, resnest_model_urls["resnest50"], group_size = 2 * 1)
@@ -297,9 +302,13 @@ def resnest101(input_tensor = None, input_shape = None, classes = 1000, include_
             img_input = tf.keras.layers.Input(tensor = input_tensor, shape = input_shape)
         else:
             img_input = input_tensor
-    
+    if input_tensor is not None:
+        inputs = layer_utils.get_source_inputs(input_tensor)
+    else:
+        inputs = img_input
+        
     out = ResNet(img_input, [3, 4, 23, 3], classes, include_top, radix = 2, group_size = 1, block_width = 64, stem_width = 64, deep_stem = True, avg_down = True, avd = True, avd_first = False)
-    model = tf.keras.Model(img_input, out)
+    model = tf.keras.Model(inputs, out)
     
     if weights == "imagenet":
         load_weight(model, resnest_model_urls["resnest101"], group_size = 2 * 1)
@@ -315,9 +324,13 @@ def resnest200(input_tensor = None, input_shape = None, classes = 1000, include_
             img_input = tf.keras.layers.Input(tensor = input_tensor, shape = input_shape)
         else:
             img_input = input_tensor
+    if input_tensor is not None:
+        inputs = layer_utils.get_source_inputs(input_tensor)
+    else:
+        inputs = img_input
             
     out = ResNet(img_input, [3, 24, 36, 3], classes, include_top, radix = 2, group_size = 1, block_width = 64, stem_width = 64, deep_stem = True, avg_down = True, avd = True, avd_first = False)
-    model = tf.keras.Model(img_input, out)
+    model = tf.keras.Model(inputs, out)
     
     if weights == "imagenet":
         load_weight(model, resnest_model_urls["resnest200"], group_size = 2 * 1)
@@ -333,9 +346,13 @@ def resnest269(input_tensor = None, input_shape = None, classes = 1000, include_
             img_input = tf.keras.layers.Input(tensor = input_tensor, shape = input_shape)
         else:
             img_input = input_tensor
+    if input_tensor is not None:
+        inputs = layer_utils.get_source_inputs(input_tensor)
+    else:
+        inputs = img_input
             
     out = ResNet(img_input, [3, 30, 48, 8], classes, include_top, radix = 2, group_size = 1, block_width = 64, stem_width = 64, deep_stem = True, avg_down = True, avd = True, avd_first = False)
-    model = tf.keras.Model(img_input, out)
+    model = tf.keras.Model(inputs, out)
     
     if weights == "imagenet":
         load_weight(model, resnest_model_urls["resnest269"], group_size = 2 * 1)
